@@ -1,0 +1,54 @@
+# this --- here is a delimiter which separates the two env environments
+# we had to replace spring.profiles with spring.config.active.on-profile
+
+# staging
+server:
+  port: 5000
+
+com:
+  otumianempire:
+    kotlinspringbootwithallthebeginnergoodies:
+      buildNumber: 3.0-staging-yml
+      databaseName: staging-db
+      password: staging-passwd
+
+spring:
+  config:
+    activate:
+      on-profile: staging
+
+
+---
+# dev
+server:
+  port: 3000
+
+com:
+  otumianempire:
+    kotlinspringbootwithallthebeginnergoodies:
+      buildNumber: 3.0-dev-yml
+      databaseName: dev-db
+      password: dev-passwd
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+
+---
+# prod
+server:
+  port: 8080
+
+com:
+  otumianempire:
+    kotlinspringbootwithallthebeginnergoodies:
+      buildNumber: 3.0-prod-yml
+      databaseName: prod-db
+      password: prod-passwd
+
+spring:
+  config:
+    activate:
+      on-profile: prod
