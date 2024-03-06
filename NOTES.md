@@ -87,6 +87,60 @@ spring:
 ```
 
 > In this project, *_application.properties* and *_application-dev.properties* have an underscore, '_', before it and
-> that is done so that the content of it will not be replacing or interfere with the content in the *application.yml*. The
+> that is done so that the content of it will not be replacing or interfere with the content in the *application.yml*.
+> The
 > system expects *application.properties* and not *_application.properties* and as such will ignore it.
 
+## Logging
+
+To add a logging dependency, add to
+*build.gradle.kts* `implementation("org.springframework.boot:spring-boot-starter-logging")` in the dependencies. Spring
+boot uses logback. Then create an instance of it where it would be used. *slf4j* logger factory is used.
+This is more or less lik e
+
+```kt
+import org.slf4j.LoggerFactory
+
+//...
+val logger = LoggerFactory.getLogger(this::class.java)
+```
+
+A string name could be passed in place of *this::class.java*. *this::class.java* refers to the this class that we are
+in. Then use logger to do the logging. There are: trace, debug, warning (warn). info, and error.
+
+So we can later log:
+
+```kt
+logger.trace("This is a trace log")
+logger.warn("This is a warning log")
+logger.info("This is an info log")
+logger.debug("This is a debug log")
+logger.error("This is an error log")
+```
+
+SprintBoot logs the info. we can change this in our *application.properties* or *application.yml* file
+
+```properties
+logging.level.root=TRACE
+```
+
+```yml
+logging:
+  level:
+    root: DEBUG
+```
+
+We can set the log for some particular class
+
+```properties
+logging.level.com.otumianempire.kotlinspringbootwithallthebeginnergoodies=INFO
+```
+
+```yml
+logging:
+  level:
+    root: ERROR
+    com:
+      otumianempire:
+        kotlinspringbootwithallthebeginnergoodies: ERROR
+```

@@ -17,8 +17,16 @@ spring:
     activate:
       on-profile: staging
 
+logging:
+  level:
+    root: DEBUG
+    com:
+      otumianempire:
+        kotlinspringbootwithallthebeginnergoodies: DEBUG
+
 
 ---
+
 # dev
 server:
   port: 3000
@@ -35,6 +43,9 @@ spring:
     activate:
       on-profile: dev
 
+logging:
+  level:
+    root: INFO
 
 ---
 # prod
@@ -52,3 +63,10 @@ spring:
   config:
     activate:
       on-profile: prod
+
+logging:
+  level:
+    root: ERROR
+    com:
+      otumianempire:
+        kotlinspringbootwithallthebeginnergoodies: ERROR
