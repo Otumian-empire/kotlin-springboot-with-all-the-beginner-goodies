@@ -336,3 +336,96 @@ interface AccountRepository : CrudRepository<Account, Long> {
 }
 ```
 
+## Thymeleaf template engine
+
+Thymeleaf is a template engine for rendering html.
+Add `implementation("org.springframework.boot:spring-boot-starter-thymeleaf")` to te dependencies in `build.gradle.kts`
+and run the build. We can then go and create a html file in `src/main/resources/templates`. We will create
+an `index.html` file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body>
+<p>Hello world</p>
+<p>This is html with thymeleaf</p>
+</body>
+</html
+```
+
+We will then create a controller (just like the RestController)
+
+```kt
+package com.otumianempire.kotlinspringbootwithallthebeginnergoodies
+
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
+
+@Controller
+class MainController {
+
+    @GetMapping("/")
+    fun index(): String {
+        return "index"
+    }
+}
+```
+
+Here, the `return "index"` will map to the index html file in `templates`. So when we
+visit, [index page](http://localhost:3000/), we see the output for the html.
+
+We can also pass data from the controller to the html
+
+```kt
+package com.otumianempire.kotlinspringbootwithallthebeginnergoodies
+
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping
+
+@Controller
+class MainController {
+
+    @GetMapping("/")
+    fun index(): String {
+        return "index"
+    }
+
+    @GetMapping("/profiles")
+    fun profiles(): String {
+        return "profiles"
+    }
+
+    @GetMapping("/profile")
+    fun profile(model: Model): String {
+        model.addAttribute("id", 1)
+        model.addAttribute("name", "Patrick Amin")
+        model.addAttribute("firstName", "Patrick")
+        // model.asMap()
+        return "profile"
+    }
+}
+```
+
+
+
+```html
+<!--profile.html-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+</head>
+<body>
+    <h1 th:text='|This is ${firstName}&#39;s profile|'></h1>
+    <p th:text='|id: ${id}|'></p>
+    <p th:text='|Full name: ${name}|'></p>
+</body>
+</html>
+
+```
