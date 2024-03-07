@@ -12,7 +12,7 @@ data class User(val email: String, val password: String)
 data class Message(val message: String, val buildNumber: String)
 
 
-@RequestMapping
+@RequestMapping("/users")
 @RestController
 class Controller(
     @Value("\${com.otumianempire.kotlinspringbootwithallthebeginnergoodies.buildNumber}") val buildNumber: String,
